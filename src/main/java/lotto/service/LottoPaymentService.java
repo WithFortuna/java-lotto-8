@@ -8,8 +8,8 @@ import lotto.controller.dto.LottoPaymentResponse;
 
 public class LottoPaymentService {
 	public LottoPaymentResponse payForLotto(LottoPaymentRequest request) {
-		List<Lotto> paidLottos = Lotto.createFromCost(request.cost());
+		List<Lotto> paidLottos = Lotto.createFromCost(request.lottoCost());
 
-		return LottoPaymentResponse.from(paidLottos);
+		return LottoPaymentResponse.from(paidLottos, request.lottoCost());
 	}
 }
