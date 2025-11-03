@@ -2,7 +2,6 @@ package lotto.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
 
 import camp.nextstep.edu.missionutils.Randoms;
 
@@ -11,7 +10,7 @@ public class Lotto {
 
 	public Lotto(List<Integer> numbers) {
 		validateLottoNumbers(numbers);
-		this.numbers = numbers;
+		this.numbers = numbers.stream().sorted().toList();
 	}
 
 	public static List<Lotto> createFromCost(int cost) {
@@ -28,11 +27,8 @@ public class Lotto {
 	}
 
 	private static Lotto createLotto(List<Lotto> lottos) {
-		TreeSet<Integer> numbers = new TreeSet<>();
-		while (numbers.size() < 6) {
-			numbers.add(Randoms.pickNumberInRange(1, 45));
-		}
-		return new Lotto(List.copyOf(numbers));
+		List<Integer> numbers = Randoms.pickUniqueNumbersInRange(1, 45, 6);
+		return new Lotto(numbers);
 	}
 
 	private static void validateLottoCost(int cost) {
